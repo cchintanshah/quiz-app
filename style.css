@@ -1,0 +1,65 @@
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.quiz-card {
+  background: white;
+  width: 520px;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+#progressFill {
+  height: 100%;
+  width: 0%;
+  background: #667eea;
+}
+
+#options label {
+  display: block;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+.correct {
+  color: green;
+  font-weight: bold;
+}
+
+.incorrect {
+  color: red;
+  font-weight: bold;
+}
+
+button {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.review-item {
+  border-top: 1px solid #ddd;
+  padding: 10px 0;
+}
