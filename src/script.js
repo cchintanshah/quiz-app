@@ -1,10 +1,10 @@
 // ============================================================================
 // CONFIGURATION - SET THESE VALUES
 // ============================================================================
-const GITHUB_TOKEN = ''; // Your GitHub Personal Access Token
-const DATA_REPO_OWNER = 'cchintanshah'; // Your GitHub username
-const DATA_REPO_NAME = 'quiz-data'; // Your private repo name
-const DATA_REPO_BRANCH = 'main'; // Branch name
+const GITHUB_TOKEN = '{{GITHUB_TOKEN}}'; // Will be replaced during build
+const DATA_REPO_OWNER = '{{DATA_REPO_OWNER}}';
+const DATA_REPO_NAME = 'quiz-data';
+const DATA_REPO_BRANCH = 'main';
 
 // ============================================================================
 // GLOBAL VARIABLES
