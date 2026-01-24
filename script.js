@@ -1,7 +1,7 @@
 // ============================================================================
 // CONFIGURATION - SET THESE VALUES
 // ============================================================================
-const GITHUB_TOKEN = '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'; // Your GitHub Personal Access Token
+const GITHUB_TOKEN = ''; // Your GitHub Personal Access Token
 const DATA_REPO_OWNER = 'cchintanshah'; // Your GitHub username
 const DATA_REPO_NAME = 'quiz-data'; // Your private repo name
 const DATA_REPO_BRANCH = 'main'; // Branch name
