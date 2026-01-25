@@ -1734,8 +1734,7 @@ function debugState() {
 function setupEventListeners() {
   console.log('🔗 Setting up event listeners...');
 
-    // Setup password toggle
-  setupPasswordToggle();
+
 
    // Setup copy protection
   setupCopyProtection();
