@@ -887,3 +887,122 @@ body.locked .container {
 body.locked .lock-screen {
   display: flex;
 }
+
+/* Password Input Styles */
+.password-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.license-input[type="password"],
+.license-input[type="text"] {
+  width: 100%;
+  padding: 15px 50px 15px 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: monospace;
+  letter-spacing: 1px;
+}
+
+.license-input[type="password"] {
+  letter-spacing: 2px;
+  font-size: 1.2rem;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #667eea;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.toggle-password:hover {
+  color: #5a67d8;
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
+/* Review Item Improvements */
+.review-item {
+  border-top: 1px solid #e2e8f0;
+  padding: 20px 0;
+  margin-top: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.review-item:first-child {
+  border-top: none;
+}
+
+.review-question {
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.review-answer {
+  margin: 10px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  border-left: 4px solid #e2e8f0;
+}
+
+.review-answer strong {
+  color: #4a5568;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.review-answer .correct {
+  color: #48bb78;
+  font-weight: 600;
+}
+
+.review-answer .incorrect {
+  color: #f56565;
+  font-weight: 600;
+}
+
+.answer-status {
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.status-correct {
+  background: #c6f6d5;
+  color: #22543d;
+  border: 1px solid #9ae6b4;
+}
+
+.status-incorrect {
+  background: #fed7d7;
+  color: #742a2a;
+  border: 1px solid #fc8181;
+}

@@ -1365,8 +1365,30 @@ function showReview(partScore) {
   reviewDiv.innerHTML = `<h3>${partDefinitions[currentPart - 1].name} Review</h3>`;
   
   window.currentPartQuestions.forEach((q, i) => {
-    const user = userAnswers[i]?.join(', ') || 'Not answered';
-    const correct = q.correct.join(', ');
+    const userAnswerLetters = userAnswers[i] || [];
+    const correctLetters = q.correct || [];
+    
+    // Get the actual answer texts instead of just letters
+    let userAnswerText = 'Not answered';
+    if (userAnswerLetters.length > 0) {
+      userAnswerText = userAnswerLetters
+        .map(letter => {
+          if (q.options && q.options[letter]) {
+            return `${letter}. ${q.options[letter]}`;
+          }
+          return letter;
+        })
+        .join(', ');
+    }
+    
+    let correctAnswerText = correctLetters
+      .map(letter => {
+        if (q.options && q.options[letter]) {
+          return `${letter}. ${q.options[letter]}`;
+        }
+        return letter;
+      })
+      .join(', ');
     
     const isCorrect = userAnswers[i] &&
       userAnswers[i].length === q.correct.length &&
@@ -1375,11 +1397,55 @@ function showReview(partScore) {
     reviewDiv.innerHTML += `
       <div class="review-item">
         <div class="review-question">${i + 1}. ${q.question}</div>
-        <div class="review-answer">Your answer: <span class="${isCorrect ? 'correct' : 'incorrect'}">${user}</span></div>
-        <div class="review-answer">Correct answer: <span class="correct">${correct}</span></div>
+        <div class="review-answer">
+          <strong>Your answer:</strong> 
+          <span class="${isCorrect ? 'correct' : 'incorrect'}">
+            ${userAnswerText}
+          </span>
+        </div>
+        <div class="review-answer">
+          <strong>Correct answer:</strong> 
+          <span class="correct">
+            ${correctAnswerText}
+          </span>
+        </div>
+        <div class="answer-status ${isCorrect ? 'status-correct' : 'status-incorrect'}">
+          ${isCorrect ? '✅ Correct' : '❌ Incorrect'}
+        </div>
       </div>
     `;
   });
+}
+/**
+ * Toggle password visibility
+ */
+function setupPasswordToggle() {
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('licenseInput');
+  
+  if (togglePassword && passwordInput) {
+    togglePassword.addEventListener('click', function() {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      
+      // Toggle eye icon
+      const icon = this.querySelector('i');
+      if (type === 'password') {
+        icon.className = 'fas fa-eye';
+        togglePassword.setAttribute('aria-label', 'Show password');
+      } else {
+        icon.className = 'fas fa-eye-slash';
+        togglePassword.setAttribute('aria-label', 'Hide password');
+      }
+    });
+    
+    // Also allow Enter key to submit
+    passwordInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        unlockApp();
+      }
+    });
+  }
 }
 
 // ============================================================================
@@ -1575,7 +1641,52 @@ function showErrorMessage(message) {
     alert(`Error: ${message}`);
   }
 }
-
+/**
+ * Prevent copying from password field (security measure)
+ */
+function setupCopyProtection() {
+  const licenseInput = document.getElementById('licenseInput');
+  
+  if (licenseInput) {
+    // Prevent copying
+    licenseInput.addEventListener('copy', function(e) {
+      e.preventDefault();
+      showLockMessage('Copying license key is disabled for security', 'warning');
+    });
+    
+    // Prevent cutting
+    licenseInput.addEventListener('cut', function(e) {
+      e.preventDefault();
+      showLockMessage('Cutting license key is disabled for security', 'warning');
+    });
+    
+    // Prevent right-click context menu
+    licenseInput.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      showLockMessage('Right-click is disabled on license field', 'warning');
+    });
+    
+    // Prevent drag and drop
+    licenseInput.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+    });
+    
+    // Auto-format the license key (optional)
+    licenseInput.addEventListener('input', function(e) {
+      let value = e.target.value.toUpperCase().replace(/[^A-Z0-9\-]/g, '');
+      
+      // Auto-format as LICENSE-XXX-XXXXX
+      if (value.length > 8 && !value.includes('-')) {
+        value = value.substring(0, 8) + '-' + value.substring(8);
+      }
+      if (value.length > 14 && value.split('-').length === 2) {
+        value = value.substring(0, 14) + '-' + value.substring(14);
+      }
+      
+      e.target.value = value;
+    });
+  }
+}
 // ============================================================================
 // UTILITY FUNCTIONS
 // ============================================================================
@@ -1622,6 +1733,12 @@ function debugState() {
  */
 function setupEventListeners() {
   console.log('🔗 Setting up event listeners...');
+
+    // Setup password toggle
+  setupPasswordToggle();
+
+   // Setup copy protection
+  setupCopyProtection();
   
   // Unlock button
   const unlockBtn = document.querySelector('.unlock-btn');
